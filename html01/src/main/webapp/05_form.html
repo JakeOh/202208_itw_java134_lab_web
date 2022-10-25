@@ -68,7 +68,38 @@
         <label for="rb2">메일 수신 거부</label>
         <br/>
         
-        <input type="submit" value="제출" />
+        <!-- 체크박스 -->
+        <input type="checkbox" name="hobby" value="1" id="chbx1" />
+        <label for="chbx1">영화보기</label>
+        <input type="checkbox" name="hobby" value="2" id="chbx2" />
+        <label for="chbx2">책읽기</label>
+        <input type="checkbox" name="hobby" value="3" id="chbx3" />
+        <label for="chbx3">코딩</label>
+        <br/>
+        
+        <!-- 목록 상자(drop-down list), 스피너(spinner), 콤보박스(combo box) -->
+        <select name="domain">
+            <option value="naver.com">네이버</option>
+            <option value="kakao.com">카카오</option>
+            <option value="gmail.com">지메일</option>
+        </select>
+        <br/>
+        
+        <!-- data list -->
+        <input type="text" name="domain2" list="domainList" />
+        <datalist id="domainList">
+            <option value="naver">@naver.com</option>
+            <option value="kakao">@kakao.com</option>
+            <option value="gmail">@gmail.com</option>
+        </datalist>
+        <br/>
+        
+        <!-- 여러줄 입력 상자 -->
+        <textarea rows="5" cols="50" name="memo"></textarea>
+        <br/>
+        
+        <input type="submit" value="제출" /> <!-- 서버로 요청 파라미터 전송 -->
+        <input type="reset" value="입력취소"> <!-- 입력된 값 모두 지우기 -->
     </form>
 
 </body>
