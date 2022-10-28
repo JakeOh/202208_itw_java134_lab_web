@@ -56,6 +56,8 @@
     //  (2) 함수는 변수에 저장할 수 있음.
     //  (3) 함수의 argument로 다른 함수를 전달할 수 있음.
     //  (4) 함수 내부에서 내부 함수를 정의(선언)할 수 있음.
+    //      내부 함수는 함수가 정의된 외부 함수 안에서만 사용할 수 있음.
+    //      지역 변수 - 함수 내부에서 선언된 변수. 변수가 선언된 블록 안에서만 사용 가능.
     
     function multiply(x, y) {
     	return x * y;
@@ -77,6 +79,28 @@
     
     // 익명 함수: 이름이 없는 함수.
     result = calculate(1, 2, function(x, y) { return x - y; });
+    console.log(result);
+    
+    // lambda 표현식: 익명 함수를 간단히 표현.
+    // (파라미터, ...) => { 실행코드; }
+    // (파라미터, ...) => 리턴값
+    result = calculate(1, 2, (x, y) => x / y);
+    console.log(result);
+    
+    function addOne() {
+    	let count = 0;
+    	
+    	// 내부 함수
+    	function plus() {
+    		count++; // 내부 함수는 외부 함수에서 선언된 변수들을 사용할 수 있음.
+    	}
+    	plus(); // 내부 함수 호출
+    	
+    	return count;
+    }
+    
+    //plus(); -> 내부 함수를 외부 함수 바깥에서 사용할 수는 없음.
+    result = addOne();
     console.log(result);
     
     </script>
