@@ -50,6 +50,35 @@
     }
     
     test(1, 'abc', 2, '홍길동');
+    
+    // 자바스크립트의 함수는 객체(object)!
+    //  (1) 함수는 프로퍼티(property - 자바의 필드)를 갖음. (예) arguments
+    //  (2) 함수는 변수에 저장할 수 있음.
+    //  (3) 함수의 argument로 다른 함수를 전달할 수 있음.
+    //  (4) 함수 내부에서 내부 함수를 정의(선언)할 수 있음.
+    
+    function multiply(x, y) {
+    	return x * y;
+    }
+    
+    const m1 = multiply(); // 함수 multiply의 리턴값(호출 결과)을 변수 m1에 저장.
+    console.log(m1);
+    
+    const m2 = multiply; // 함수 multiply 객체를 변수 m2에 저장.
+    console.log(m2); // 변수 m2: 함수 객체 
+    console.log(m2(3, 4)); // m2라는 이름으로 함수 호출이 가능.
+    
+    function calculate(x, y, operator) {
+    	return operator(x, y);
+    }
+    
+    result = calculate(1, 2, add);
+    console.log(result);
+    
+    // 익명 함수: 이름이 없는 함수.
+    result = calculate(1, 2, function(x, y) { return x - y; });
+    console.log(result);
+    
     </script>
 </body>
 </html>
