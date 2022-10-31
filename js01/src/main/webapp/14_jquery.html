@@ -15,6 +15,9 @@
         margin: 8px;
         padding: 8px;
     }
+    img#bulb {
+        border: 1px solid gray;
+    }
     
 </style>
 </head>
@@ -42,6 +45,10 @@
     <h1>jQuery 컨텐트(html), 속성(attribute), 스타일(style property)</h1>
     
     <div id="test">Hello, <strong>jQuery</strong>!</div>
+    
+    <div>
+        <img id="bulb" alt="bulb" src="images/bulb_off.gif" />
+    </div>
     
     <!--  
       jQuery: JavaScript를 (편리하게) 사용하기 위한 라이브러리.
@@ -111,6 +118,25 @@
     	// 이벤트 리스너(콜백 함수) 안에서 $(this)의 의미: 이벤트가 발생한 HTML 요소.
     	console.log($(this).html()); // JavaScript의 innerHTML
     	console.log($(this).text()); // JavaScript의 innerText
+    	console.log($(this).attr('id')); // HTML 태그의 id 속성 값.
+    	console.log($(this).css('color')); // HTML 요소의 style 속성의 color 프로퍼티 값.
+    
+        // HTML 요소의 컨텐트, 속성, 스타일 변경
+        $(this).html('<strong>안녕</strong>하세요, <em>자바스크립트</em>....');
+    	$(this).css('color', 'red');
+    });
+    
+    // bulb 이미지 위에 마우스가 올라가면 이미지와 테두리선 스타일을 변경.
+    $('img#bulb').mouseenter(function() {
+    	// $(this) == $('img#bulb')
+    	$(this).attr('src', 'images/bulb_on.gif');
+    	$(this).css('border', '1px solid red');
+    });
+    
+    // bulb 이미지 바깥으로 마우스가 나가면 이미지와 테두리선 스타일을 변경.
+    $('img#bulb').mouseleave(function() {
+    	$(this).attr('src', 'images/bulb_off.gif');
+    	$(this).css('border', '1px solid gray');
     });
     
     </script>
