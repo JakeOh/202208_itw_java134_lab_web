@@ -10,6 +10,11 @@
         margin: 16px;
         padding: auto;
     }
+    div#test {
+        border: 1px solid gray;
+        margin: 8px;
+        padding: 8px;
+    }
     
 </style>
 </head>
@@ -21,8 +26,22 @@
     <button id="btn-show">Show</button>
     <button id="btn-toggle">Hide/Show Toggle</button>
     <br/>
+    <button id="btn-fade-out">Fade Out</button>
+    <button id="btn-fade-in">Fade In</button>
+    <button id="btn-fade-toggle">Fade Toggle</button>
+    <br/>
+    <button id="btn-slide-up">Slide Up</button>
+    <button id="btn-slide-down">Slide Down</button>
+    <button id="btn-slide-toggle">Slide Toggle</button>
+    <br/>
     
     <div id="panel">테스트</div>
+    
+    <hr/>
+    
+    <h1>jQuery 컨텐트(html), 속성(attribute), 스타일(style property)</h1>
+    
+    <div id="test">Hello, <strong>jQuery</strong>!</div>
     
     <!--  
       jQuery: JavaScript를 (편리하게) 사용하기 위한 라이브러리.
@@ -39,10 +58,10 @@
     <!-- (2) jQuery를 이용하는 자바스크립트 코드 -->
     <script>
     /* jQuery 기본 문법:
-        $(selector).action(param, ...);
+       $(selector).action(param, ...);
         - $(selector): HTML 요소를 찾는 방법.
-        - $('#id'): document.querySelector()와 동일. -> element를 리턴.
-        - $('id 이외의 selector'): document.querySelectorAll()과 동일. -> element들의 배열을 리턴.
+        - $('#id'): document.querySelector()와 동일 -> element를 리턴.
+        - $('id 이외의 selector'): document.querySelectorAll()과 동일 -> element들의 배열을 리턴.
     */
     
     const panel = $('div#panel'); // document.querySelector('div#panel')
@@ -61,6 +80,37 @@
     // id='btn-toggle'인 버튼에 'click' 이벤트 리스너를 등록.
     $('#btn-toggle').click(function() {
     	panel.toggle(2000);
+    });
+    
+    $('#btn-fade-out').click(function() {
+    	panel.fadeOut('fast');
+    });
+    
+    $('#btn-fade-in').click(function() {
+    	panel.fadeIn('fast');
+    });
+    
+    $('#btn-fade-toggle').click(function() {
+    	panel.fadeToggle('slow');
+    });
+    
+    $('#btn-slide-up').click(function() {
+    	panel.slideUp(2000);
+    });
+    
+    $('#btn-slide-down').click(function() {
+    	panel.slideDown(2000);
+    });
+    
+    $('#btn-slide-toggle').click(function() {
+    	panel.slideToggle(2000);
+    });
+    
+    // div 중에서 id 속성값이 test인 요소에 click 이벤트 리스너를 등록.
+    $('div#test').click(function() {
+    	// 이벤트 리스너(콜백 함수) 안에서 $(this)의 의미: 이벤트가 발생한 HTML 요소.
+    	console.log($(this).html()); // JavaScript의 innerHTML
+    	console.log($(this).text()); // JavaScript의 innerText
     });
     
     </script>
