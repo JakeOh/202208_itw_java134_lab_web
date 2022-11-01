@@ -27,8 +27,11 @@
         * 요청 -> 생성된 Servlet 객체의 doGet/doPost 메서드를 호출 -> 응답
       
     JSP: Java Server Page
-    Servlet은 순수한 Java 코드이기 때문에 HTML을 작성하는 것이 힘듦.
-    HTML 형식의 문서에서 Java 코드들이 실행될 수 있도록 만든 Server-side 기술.
+      - Servlet은 순수한 Java 코드이기 때문에 HTML을 작성하는 것이 힘듦.
+      - HTML 형식의 문서에서 Java 코드들이 실행될 수 있도록 만든 Server-side 기술.
+      - JSP의 동작 원리: jsp -> java -> class -> 객체 생성 -> 메서드 호출.
+        * 최초 요청 -> jsp를 서블릿 클래스(java)로 변환 -> 컴파일(class) -> 객체 생성 -> 메서드 호출 -> 응답
+        * 요청 -> 생성된 객체에서 메서드 호출 -> 응답
     --%>
     
     <% /* Java 블록 주석 */
