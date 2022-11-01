@@ -32,6 +32,20 @@
       - JSP의 동작 원리: jsp -> java -> class -> 객체 생성 -> 메서드 호출.
         * 최초 요청 -> jsp를 서블릿 클래스(java)로 변환 -> 컴파일(class) -> 객체 생성 -> 메서드 호출 -> 응답
         * 요청 -> 생성된 객체에서 메서드 호출 -> 응답
+    
+    JSP 구성 용소(태그)
+      1. 지시문(directive): <%@ ... %>
+         <%@ page ... %>, <%@ include ... %>, <%@ taglib ... %>, ...
+         JSP 설정.
+      2. 선언문(declaration): <%! ... %>
+         JSP가 Java 파일로 변환될 때, 필드(멤버 변수)와 메서드를 정의하는 코드.
+      3. 스크립트릿(scriptlet): <% ... %>
+         JSP가 Java로 변환될 때, _jspService(request, response) 메서드 안에 포함되는 코드.
+         지역 변수 선언. 메서드 호출. 조건문. 반복문. ...
+      4. 식, 표현식(expression): <%= ... %>
+         JSP가 Java로 변환될 때, out.print() 메서드의 argument로 전달되는 값.
+         HTML에 바로 삽입되는 값.
+      5. 주석(comment)
     --%>
     
     <% /* Java 블록 주석 */
@@ -43,6 +57,17 @@
     <% LocalDateTime now = LocalDateTime.now(); %>
     <h2>서버 시간: <%= now.toString() %></h2>
     
+    <%-- declaration(선언문) --%>
+    <%! 
+    private final String username = "admin"; // 클래스의 필드(멤버 변수)
+    
+    // getter 메서드
+    public String getUsername() {
+        return this.username;
+    }
+    %>
+    
+    <h3>Username: <%= getUsername() %></h3>
     
 </body>
 </html>
