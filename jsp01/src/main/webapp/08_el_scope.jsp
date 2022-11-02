@@ -49,7 +49,7 @@
     <%-- ${ pageScope.number1 } --%>
     requestScope 속성: ${ number2 } <br/>
     <%-- ${ pageScope.number2 } 속성 값을 찾을 수 없음 => ${ requestScope.number2 } --%>
-    sesseionScope 속성: ${ number3 } <br/>
+    sessionScope 속성: ${ number3 } <br/>
     applicationScope 속성: ${ number4 } <br/>
 
 </body>
