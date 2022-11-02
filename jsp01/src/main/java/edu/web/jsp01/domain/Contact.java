@@ -40,7 +40,7 @@ public class Contact {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+ 
     @Override
     public String toString() {
         return String.format("Contact(name=%s, phone=%s, email=%s)", 
