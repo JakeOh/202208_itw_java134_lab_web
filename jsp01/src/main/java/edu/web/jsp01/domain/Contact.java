@@ -1,16 +1,22 @@
 package edu.web.jsp01.domain;
 
 public class Contact {
+    // field
     private String name;
     private String phone;
     private String email;
     
+    // default constructor
+    public Contact() {}
+    
+    // argument를 갖는 생성자
     public Contact(String name, String phone, String email) {
         this.name = name;
         this.phone = phone;
         this.email = email;
     }
 
+    // getters & setters
     public String getName() {
         return name;
     }
