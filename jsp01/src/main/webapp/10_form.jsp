@@ -9,7 +9,8 @@
 <body>
     <h1>Form 제출 페이지</h1>
     
-    <form action="11_result.jsp" method="get">
+    <%-- action="11_result.jsp" --%>
+    <form action="12_result.jsp" method="get">
         <div>
             <input type="text" name="username" placeholder="사용자 이름" autofocus />
         </div>
