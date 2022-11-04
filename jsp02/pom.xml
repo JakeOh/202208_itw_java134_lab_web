@@ -45,6 +45,13 @@
             <version>21.7.0.0</version>
         </dependency>
 
+        <!-- HikariCP (Connection Pool): DBCP DataSource를 사용하기 위해서 -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
