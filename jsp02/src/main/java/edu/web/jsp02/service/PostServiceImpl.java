@@ -40,8 +40,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public int create(PostCreateDto dto) {
-        // TODO Auto-generated method stub
-        return 0;
+        log.info("create(dto={})", dto);
+        
+        return postDao.insert(dto.toEntity());
     }
 
 }

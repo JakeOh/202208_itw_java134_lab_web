@@ -1,5 +1,6 @@
 package edu.web.jsp02.dto;
 
+import edu.web.jsp02.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,11 @@ public class PostCreateDto {
     private String content;
     private String author;
 
+    // PostCreateDto 타입을 Post 타입으로 변환해서 리턴하는 메서드.
+    public Post toEntity() {
+        return Post.builder()
+                .title(title).content(content).author(author)
+                .build();
+    }
+    
 }
