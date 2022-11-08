@@ -9,5 +9,6 @@ public interface PostDao {
     public List<Post> select();
     public int insert(Post entity);
     public Post selectById(Integer id);
+    public int delete(Integer id);
 
 }

@@ -171,5 +171,35 @@ public class PostDaoImpl implements PostDao {
         
         return entity;
     }
+
+    public static final String SQL_DELETE = "delete from POSTS where ID = ?";
+    
+    @Override
+    public int delete(Integer id) {
+        log.info("delete(id = {})", id);
+        
+        int result = 0; // DB에서 delete SQL 실행 결과값을 저장하기 위한 변수
+        
+        try {
+            @Cleanup
+            Connection conn = ds.getConnection();
+            
+            @Cleanup
+            PreparedStatement stmt = conn.prepareStatement(SQL_DELETE);
+            log.info(SQL_DELETE);
+            
+            stmt.setInt(1, id);
+            
+            result = stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return result;
+    }
+    
+    public static final String SQL_UPDATE = 
+            "update POSTS set TITLE = ?, CONTENT = ?, MODIFIED_TIME = sysdate where ID = ?";
     
 }

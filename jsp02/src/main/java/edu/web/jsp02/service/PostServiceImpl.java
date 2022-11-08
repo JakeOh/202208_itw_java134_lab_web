@@ -53,4 +53,12 @@ public class PostServiceImpl implements PostService {
         return postDao.selectById(id);
     }
 
+    @Override
+    public int delete(Integer id) {
+        log.info("delete(id = {})", id);
+        
+        // 데이터베이스에서 id로 레코드를 삭제.
+        return postDao.delete(id);
+    }
+
 }

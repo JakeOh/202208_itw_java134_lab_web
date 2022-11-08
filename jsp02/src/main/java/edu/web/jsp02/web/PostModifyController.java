@@ -56,8 +56,7 @@ public class PostModifyController extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		// TODO : 포스트 (제목 또는 내용) 수정.
 	}
 
 }

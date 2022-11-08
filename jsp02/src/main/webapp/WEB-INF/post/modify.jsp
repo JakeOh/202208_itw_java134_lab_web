@@ -22,42 +22,72 @@
                     <a href="${ postListPage }">포스트 목록</a>
                 </li>
                 <li>
-                    <c:url var="postModifyPage" value="/post/modify">
+                    <c:url var="postModifyPage" value="/post/detail">
                         <c:param name="id" value="${ post.id }"></c:param>
                     </c:url>
-                    <a href="${ postModifyPage }">포스트 수정</a>
+                    <a href="${ postModifyPage }">포스트 상세</a>
                 </li>
             </ul>
         </nav>
         
         <main>
-            <form>
+            <form id="postForm"> 
+            <!-- action: 제출(submit) 주소. 기본값은 현재 페이지 주소.
+            method: 제출(submit) 방식. 기본값은 'get' -->
                 <div>
                     <label for="id">번호</label>
-                    <input id="id" type="text" value="${ post.id }" readonly />
+                    <input id="id" type="text" name="id" value="${ post.id }" readonly />
                 </div>
                 <div>
                     <label for="title">제목</label>
-                    <input id="title" type="text" value="${ post.title }" readonly />
+                    <input id="title" type="text" name="title" value="${ post.title }" required autofocus />
                 </div>
                 <div>
                     <label for="content">내용</label>
-                    <textarea id="content" type="text" readonly>${ post.content }</textarea>
+                    <textarea id="content" type="text" name="content" required>${ post.content }</textarea>
                 </div>
                 <div>
                     <label for="author">작성자</label>
                     <input id="author" type="text" value="${ post.author }" readonly />
                 </div>
                 <div>
-                    <label for="createdTime">작성시간</label>
-                    <input id="createdTime" type="text" value="${ post.createdTime }" readonly />
-                </div>
-                <div>
-                    <label for="modifiedTime">수정시간</label>
-                    <input id="modifiedTime" type="text" value="${ post.modifiedTime }" readonly />
+                    <button id="btnDelete">삭제</button>
+                    <button id="btnUpdate">수정완료</button>
+                    <!-- form 안에서 작성된 버튼들은 form의 action 주소로 method 방식의 요청을 보냄. -->
                 </div>
             </form>
         </main>
     </div>
+    
+    <c:url var="postDeletePage" value="/post/delete"></c:url>
+    <c:url var="postUpdatePage" value="/post/modify"></c:url>
+    
+    <script>
+    // id="postForm" 인 HTML 요소를 찾음.
+    const form = document.querySelector('#postForm');
+    
+    // id="btnDelete" 인 버튼을 찾음.
+    const btnDelete = document.querySelector('#btnDelete');
+    
+    // 버튼 클릭 이벤트 리스너를 등록.
+    btnDelete.addEventListener('click', function(event) {
+    	event.preventDefault();
+    	// 이벤트 기본 처리방식을 막음(실행되지 않도록 함).
+    	//-> 폼 양식이 서버로 제출(submit)되지 않도록 함.
+    	
+    	// 사용자에게 삭제 확인
+    	const check = confirm('정말 삭제?');
+    	if (check) { // 사용자 "확인"을 선택했을 때
+    		form.action = '${ postDeletePage }'; // 제출 요청 주소
+    		form.method = 'post'; // 제출 요청 방식
+    		form.submit(); // 서버로 제출(데이터 전송)
+    	}
+    });
+    
+    // id="btnUpdate" 인 버튼을 찾음.
+    const btnUpdate;
+    // 버튼의 'click' 이벤트 리스너를 등록.
+    btnUpate.addEventListener();
+    </script>
 </body>
 </html>
