@@ -22,6 +22,8 @@
         </nav>
         
         <main>
+            <!-- form의 action 속성: 요청을 보내는 주소. 
+            생략된 경우에는 현재 페이지로 요청을 보냄.-->
             <form method="post">
                 <div>
                     <input type="text" name="title" placeholder="제목" required autofocus />
