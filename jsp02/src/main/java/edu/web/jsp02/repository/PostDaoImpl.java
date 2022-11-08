@@ -15,12 +15,16 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import edu.web.jsp02.datasource.HikariDataSourceUtil;
 import edu.web.jsp02.domain.Post;
+import lombok.Cleanup;
+import lombok.extern.slf4j.Slf4j;
 
 // MVC 아키텍쳐에서 Controller의 계층들 중에서 DB 관련 작업을 수행하는 계층.
 // Controller 계층: Web layer(Servlet) - Service layer - Repository layer(DAO)
+
+@Slf4j
 public class PostDaoImpl implements PostDao {
     // Slf4j 로그를 사용하기 위해서
-    private static final Logger log = LoggerFactory.getLogger(PostDaoImpl.class);
+    // private static final Logger log = LoggerFactory.getLogger(PostDaoImpl.class);
     
     // Singleton
     private static PostDaoImpl instance = null;
@@ -121,6 +125,51 @@ public class PostDaoImpl implements PostDao {
         }
         
         return result;
+    }
+
+    public static final String SQL_SELECT_BY_ID = 
+            "select * from POSTS where ID = ?";
+    
+    @Override
+    public Post selectById(Integer id) {
+        log.info("selectById(id = {})", id);
+        
+        // 엔터티: DB 테이블의 행에 저장된 데이터. 레코드.
+        Post entity = null;
+        
+        try {
+            @Cleanup // 리소스 사용이 끝난 후에 close() 메서드를 자동으로 호출.
+            Connection conn = ds.getConnection();
+            
+            @Cleanup
+            PreparedStatement stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
+            log.info(SQL_SELECT_BY_ID);
+            
+            stmt.setInt(1, id);
+            
+            @Cleanup
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) { // 검색된 행(row, 레코드)가 있으면
+                //Integer postId = rs.getInt("ID");
+                String title = rs.getString("TITLE");
+                String content = rs.getString("CONTENT");
+                String author = rs.getString("AUTHOR");
+                LocalDateTime createdTime = rs.getTimestamp("CREATED_TIME").toLocalDateTime();
+                LocalDateTime modifiedTime = rs.getTimestamp("MODIFIED_TIME").toLocalDateTime();
+                
+                entity = Post.builder()
+                        .id(id).title(title).content(content).author(author)
+                        .createdTime(createdTime).modifiedTime(modifiedTime)
+                        .build();
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Connection, PreparedStatement, ResultSet을 선언할 때 @Cleanup을 사용했기 때문에,
+        // finally에서 close 메서드를 호출할 필요 없이, 모든 리소스는 자동으로 해제됨.
+        
+        return entity;
     }
     
 }

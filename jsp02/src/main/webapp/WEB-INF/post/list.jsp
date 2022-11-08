@@ -14,10 +14,12 @@
         <nav> <!-- 웹 서버 내에서 이동 메뉴 -->
             <ul>
                 <li>
-                    <a href="/jsp02">메인 페이지</a>
+                    <c:url var="mainPage" value="/"></c:url>
+                    <a href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li>
-                    <a href="/jsp02/post/create">포스트 작성</a>
+                    <c:url var="postCreatePage" value="/post/create"></c:url>
+                    <a href="${ postCreatePage }">포스트 작성</a>
                 </li>
             </ul>
         </nav>
@@ -36,7 +38,12 @@
                     <c:forEach var="p" items="${ posts }">
                     <tr>
                         <td>${ p.id }</td>
-                        <td>${ p.title }</td>
+                        <td>
+                            <c:url var="postDetailPage" value="/post/detail">
+                                <c:param name="id" value="${ p.id }"></c:param>
+                            </c:url>
+                            <a href="${ postDetailPage }">${ p.title }</a>
+                        </td>
                         <td>${ p.author }</td>
                         <td>${ p.modifiedTime }</td>
                     </tr>
