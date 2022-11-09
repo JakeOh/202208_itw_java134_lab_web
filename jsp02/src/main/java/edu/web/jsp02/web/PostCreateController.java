@@ -67,6 +67,8 @@ public class PostCreateController extends HttpServlet {
 		
 		// 포스트 목록 페이지 이동(redirect)
 		response.sendRedirect("/jsp02/post");
+		
+		// PRG(Post - Redirect - Get) 패턴
 	}
 
 }
