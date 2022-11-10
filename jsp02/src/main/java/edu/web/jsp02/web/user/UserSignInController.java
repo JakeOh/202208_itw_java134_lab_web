@@ -6,18 +6,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import edu.web.jsp02.dto.UserSignUpDto;
+import edu.web.jsp02.domain.User;
 import edu.web.jsp02.service.UserService;
 import edu.web.jsp02.service.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Servlet implementation class UserSignUpController
+ * Servlet implementation class UserSignInController
  */
 @Slf4j
-@WebServlet(name = "userSignUpController", urlPatterns = { "/user/signup" })
-public class UserSignUpController extends HttpServlet {
+@WebServlet(name = "userSignInController", urlPatterns = { "/user/signin" })
+public class UserSignInController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private UserService userService;
@@ -25,7 +26,7 @@ public class UserSignUpController extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserSignUpController() {
+    public UserSignInController() {
         userService = UserServiceImpl.getInstance();
     }
 
@@ -37,37 +38,42 @@ public class UserSignUpController extends HttpServlet {
 	        throws ServletException, IOException {
 		log.info("doGet()");
 		
-		request.getRequestDispatcher("/WEB-INF/user/signup.jsp")
+		request.getRequestDispatcher("/WEB-INF/user/signin.jsp")
 		    .forward(request, response);
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
+    @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 	        throws ServletException, IOException {
 		log.info("doPost()");
 		
-		// 요청 파라미터(아이디, 비밀번호, 이메일)를 분석
+		// 로그인 페이지의 요청 파라미터를 분석
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String email = request.getParameter("email");
 		
-		// Service layer에 전달할 객체
-		UserSignUpDto dto = UserSignUpDto.builder()
-		        .username(username).password(password).email(email)
-		        .build();
+		// UserService 메서드를 호출해서 로그인 처리 
+		//-> 아이디/비밀번호가 일치하는 사용자 정보가 있는 지 DB에서 검색(select)
+		User user = userService.signIn(username, password);
 		
-		int result = userService.signUp(dto);
-		log.info("회원 가입 결과 = {}", result);
-		
-		if (result == 1) { // 회원 가입 성공
+		// 로그인 성공/실패 경우에 redirect
+		if (user == null) { // 로그인 실패
+		    log.info("로그인 실패");
 		    response.sendRedirect("/jsp02/user/signin"); // 로그인 페이지로 이동
-		} else { // 회원 가입 실패
-		    response.sendRedirect("/jsp02/user/signup"); // 회원 가입 페이지로 이동
+		    return; // doPost() 메서드 종료
 		}
+		
+		// 로그인 성공: 
+		// (1) 세션(session)에 로그인 정보 저장.
+		HttpSession session = request.getSession();
+		// 로그인 사용자 아이디를 세션에 저장
+		session.setAttribute("signInUser", user.getUsername());
+		// EL scope: pageScore -> requestScope -> sessionScope -> applicationScope
+		
+		// (2) 적절한 페이지로 이동.
+		response.sendRedirect("/jsp02/post"); // 포스트 목록 페이지로 이동
 		
 	}
 

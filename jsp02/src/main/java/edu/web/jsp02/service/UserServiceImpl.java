@@ -1,5 +1,6 @@
 package edu.web.jsp02.service;
 
+import edu.web.jsp02.domain.User;
 import edu.web.jsp02.dto.UserSignUpDto;
 import edu.web.jsp02.repository.UserDao;
 import edu.web.jsp02.repository.UserDaoImpl;
@@ -29,6 +30,17 @@ public class UserServiceImpl implements UserService {
         log.info("signUp(dto = {})", dto);
         
         return userDao.insert(dto.toEntity());
+    }
+
+    @Override
+    public User signIn(String username, String password) {
+        log.info("signIn(username={}, password={})", username, password);
+        
+        User user = User.builder()
+                .username(username).password(password)
+                .build();
+        
+        return userDao.selectByUsernameAndPassword(user);
     }
 
 }

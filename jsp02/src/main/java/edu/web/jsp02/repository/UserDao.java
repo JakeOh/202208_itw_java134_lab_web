@@ -6,4 +6,6 @@ public interface UserDao {
 
     int insert(User entity);
 
+    User selectByUsernameAndPassword(User user);
+
 }
