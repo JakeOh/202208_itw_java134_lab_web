@@ -71,4 +71,11 @@ public class PostServiceImpl implements PostService {
         return postDao.update(dto.toEntity());
     }
 
+    @Override
+    public List<Post> search(String type, String keyword) {
+        log.info("search(type = {}, keyword = {})", type, keyword);
+        
+        return postDao.selectByKeyword(type, keyword);
+    }
+    
 }
