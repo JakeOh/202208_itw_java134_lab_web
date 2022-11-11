@@ -43,7 +43,7 @@ public class EncodingFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 	        throws IOException, ServletException {
 		// 클라이언트에 온 요청을 Servlet(controller)로 전달하기 전에 실행할 코드들.
-        log.trace("doFilter 호출 전");
+        log.info("doFilter 호출 전");
         
         // 모든 요청의 인코딩 값을 "UTF-8"로 설정.
         ((HttpServletRequest) request).setCharacterEncoding("UTF-8");
