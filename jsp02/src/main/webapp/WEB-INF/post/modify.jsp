@@ -13,6 +13,13 @@
         
         <nav>
             <ul>
+                <c:if test="${ not empty signInUser }">
+                    <li>
+                        <span>${ signInUser }</span>
+                        <c:url var="signOutPage" value="/user/signout"></c:url>
+                        <a href="${ signOutPage }">로그아웃</a>
+                    </li>
+                </c:if>
                 <li>
                     <c:url var="mainPage" value="/"></c:url>
                     <a href="${ mainPage }">메인 페이지</a>
@@ -46,15 +53,17 @@
                     <label for="content">내용</label>
                     <textarea id="content" type="text" name="content" required>${ post.content }</textarea>
                 </div>
-                <div>
+                <div style="display: none;">
                     <label for="author">작성자</label>
-                    <input id="author" type="text" value="${ post.author }" readonly />
+                    <input id="author" type="hidden" value="${ post.author }" readonly />
                 </div>
-                <div>
-                    <button id="btnDelete">삭제</button>
-                    <button id="btnUpdate">수정완료</button>
-                    <!-- form 안에서 작성된 버튼들은 form의 action 주소로 method 방식의 요청을 보냄. -->
-                </div>
+                <c:if test="${ signInUser == post.author }">
+                    <div>
+                        <button id="btnDelete">삭제</button>
+                        <button id="btnUpdate">수정완료</button>
+                        <!-- form 안에서 작성된 버튼들은 form의 action 주소로 method 방식의 요청을 보냄. -->
+                    </div>
+                </c:if>
             </form>
         </main>
     </div>

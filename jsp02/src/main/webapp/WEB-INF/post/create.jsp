@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +13,21 @@
         
         <nav>
             <ul>
+                <%-- 로그인 정보가 있으면 로그아웃 기능을 추가 --%>
+                <c:if test="${ not empty signInUser }">
+                    <li> 
+                        <span>${signInUser }</span>
+                        <c:url var="signOutPage" value="/user/signout"></c:url>
+                        <a href="${ signOutPage }">로그아웃</a>
+                    </li>
+                </c:if>
                 <li>
-                    <a href="/jsp02">메인 페이지</a>
+                    <c:url var="mainPage" value="/"></c:url>
+                    <a href="${ mainPage }">메인 페이지</a>
                 </li>
                 <li>
-                    <a href="/jsp02/post">목록 페이지</a>
+                    <c:url var="postListPage" value="/post"></c:url>
+                    <a href="${ postListPage }">목록 페이지</a>
                 </li>
             </ul>
         </nav>
@@ -32,7 +43,8 @@
                     <textarea rows="5" cols="80" name="content" placeholder="내용" required></textarea>
                 </div>
                 <div>
-                    <input type="text" name="author" placeholder="작성자" required />
+                    <%-- 작성자 input은 로그인한 사용자 아이디로 세팅. --%>
+                    <input type="hidden" name="author" value="${ signInUser }" readonly />
                 </div>
                 <div>
                     <input type="submit" value="작성 완료" />
