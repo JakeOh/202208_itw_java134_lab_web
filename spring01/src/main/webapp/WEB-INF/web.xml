@@ -10,7 +10,7 @@
     <!-- Context parameters -->
     <!-- 스프링 컨텍스트의 설정 정보들을 저장한 파일의 위치 -->
     <context-param>
-        <param-name>contextConfiguration</param-name>
+        <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
     </context-param>
     
@@ -38,7 +38,7 @@
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
-            <param-name>contextConfiguration</param-name>
+            <param-name>contextConfigLocation</param-name>
             <param-value>/WEB-INF/servlet-context.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
