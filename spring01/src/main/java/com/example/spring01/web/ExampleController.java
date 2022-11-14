@@ -3,6 +3,8 @@ package com.example.spring01.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,9 +36,31 @@ public class ExampleController {
     @GetMapping("/ex2")
     public void ex2(String username, int age, Model model) {
         log.info("ex2(username={}, age={})", username, age);
+        // 컨트롤러 메서드를 선언할 때 파라미터의 이름을 요청 파라미터 이름과 같게 선언하면,
+        // DispatcherServlet이 컨트롤러 메서드를 호출하면서 요청 파라미터의 값들을
+        // argument로 전달해줌!
         
+        // Model 타입 객체: 컨트롤러에서 뷰로 전달할 데이터가 있을 때 사용.
+        // -> model의 속성(attribute) 이름은 JSP에서 EL로 사용할 수 있음.
         model.addAttribute("username", username);
         model.addAttribute("age", age);
+    }
+    
+    @PostMapping("/ex3")
+    public String ex(
+            @RequestParam(name = "username") String name, // (1)
+            @RequestParam(defaultValue = "0") int age,  // (2)
+            Model model) {
+        // 컨트롤러 메서드를 선언할 때, 파라미터 선언 앞에 @RequestParam 애너테이션을 사용.
+        // (1) 메서드 파라미터와 요청 파라미터 이름이 다를 때, name 속성 설정.
+        // (2) 요청 파라미터 값이 없거나 비어있을 때, defaultValue 속성 설정.
+        
+        log.info("ex3(name={}, age={})", name, age);
+        
+        model.addAttribute("username", name);
+        model.addAttribute("age", age);
+        
+        return "ex2"; //-> 뷰: /WEB-INF/views/ex2.jsp
     }
     
 }

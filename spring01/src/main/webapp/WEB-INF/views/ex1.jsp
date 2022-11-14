@@ -11,8 +11,17 @@
     
     <h1>Example 1</h1>
     
+    <h2>GET: ex2</h2>
     <c:url var="ex2" value="/ex2"></c:url>
     <form action="${ ex2 }" method="get">
+        <input type="text" name="username" placeholder="사용자 이름" />
+        <input type="number" name="age" placeholder="나이" />
+        <input type="submit" value="제출" />
+    </form>
+    
+    <h2>POST: ex3</h2>
+    <c:url var="ex3" value="/ex3"></c:url>
+    <form action="${ ex3 }" method="post">
         <input type="text" name="username" placeholder="사용자 이름" />
         <input type="number" name="age" placeholder="나이" />
         <input type="submit" value="제출" />
