@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -29,16 +30,25 @@ public class TestHikariConfig {
     // 필요한 곳에서 변수 선언과 애너테이션을 사용하면, 
     // 스프링 컨테이너가 필요한 곳에 객체를 주입하는 개발 방식.
     
-//    @Autowired // 스프링 컨테이너에서 (생성하고) 관리하는 bean을 변수에 자동 할당.
-//    private HikariConfig config;
+    @Autowired // 스프링 컨테이너에서 (생성하고) 관리하는 bean을 변수에 자동 할당.
+    @Qualifier("hikariConfig")
+    /*
+     * HikariConfig : super class
+     * |__ HikariDataSource : sub class
+     * 다형성(polymorphism) 때문에 HikariConfig 타입에는 
+     * HikariConfig 객체와 HikariDataSource 객체를 모두 주입할 수 있다.
+     * applicationContext.xml에서 설정한 id 값을 이용해 특정 bean을 주입받고자 할 때에는
+     * @Qualifier("id") 애너테이션을 사용하면 됨.
+     */
+    private HikariConfig config;
     
     @Autowired
     private HikariDataSource ds;
     
     @Test
     public void testHikariConfig() throws SQLException {
-//        Assertions.assertNotNull(config);
-//        log.info("config = {}", config);
+        Assertions.assertNotNull(config);
+        log.info("config = {}", config);
         
         Assertions.assertNotNull(ds);
         log.info("ds = {}", ds);
