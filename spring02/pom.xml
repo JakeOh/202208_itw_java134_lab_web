@@ -95,6 +95,13 @@
             <version>21.7.0.0</version>
         </dependency>
         
+        <!-- HikariCP (Connection Pool, Data Source) -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.0.1</version>
+        </dependency>
+        
     </dependencies>
     <build>
         <plugins>
