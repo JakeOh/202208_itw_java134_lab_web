@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.spring01.dto.UserDto;
+
 import lombok.extern.slf4j.Slf4j;
 
 // POJO(Plain Old Java Object): 평범한 자바 객체.
@@ -47,7 +49,7 @@ public class ExampleController {
     }
     
     @PostMapping("/ex3")
-    public String ex(
+    public String ex3(
             @RequestParam(name = "username") String name, // (1)
             @RequestParam(defaultValue = "0") int age,  // (2)
             Model model) {
@@ -61,6 +63,39 @@ public class ExampleController {
         model.addAttribute("age", age);
         
         return "ex2"; //-> 뷰: /WEB-INF/views/ex2.jsp
+    }
+    
+    @PostMapping("/ex4")
+    public String ex4(UserDto user, Model model) {
+        log.info("ex4({})", user);
+        // DispatcherServlet은
+        // 1. 요청 파라미터들을 분석(request.getParameter).
+        // 2. UserDto의 기본 생성자를 호출해서 객체를 생성.
+        // 3. 요청 파라미터들의 이름으로 UserDto의 setter 메서드를 찾아서 호출.
+        // 4. UserDto 객체를 컨트롤러 메서드를 호출할 때 argument로 전달.
+        
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("age", user.getAge());
+        
+        return "ex2";
+    }
+    
+    @GetMapping("/sample")
+    public String sample() {
+        log.info("sample()");
+        return "sample"; // /WEB-INF/views/sample.jsp
+    }
+    
+    @GetMapping("/ex-forward")
+    public String exForward() {
+        log.info("exForward()");
+        return "forward:/sample";
+    }
+    
+    @GetMapping("/ex-redirect")
+    public String exRedirect() {
+        log.info("exRedirect()");
+        return "redirect:/sample";
     }
     
 }
