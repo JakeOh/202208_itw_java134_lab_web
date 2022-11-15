@@ -7,5 +7,6 @@ import com.example.spring02.domain.Post;
 public interface PostMapper {
     
     List<Post> selectOrderByIdDesc();
+    int insert(Post post);
 
 }
