@@ -30,5 +30,12 @@
         destroy-method="close">
         <constructor-arg ref="hikariConfig" />
     </bean>
+    
+    <!-- SqlSessionFactoryBean:
+      Data Source(Connection Pool)를 사용해서 SQL 문장들을 실행하고 결과 처리를 수행하는 객체.
+    -->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
 </beans>

@@ -3,9 +3,11 @@ package com.example.spring02.ojdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,7 +24,6 @@ import lombok.extern.slf4j.Slf4j;
         "file:src/main/webapp/WEB-INF/applicationContext.xml"
 })
 public class TestHikariConfig {
-    
     // 의존성 주입(dependency injection)
     // 제어의 역전(IoC: Inversion of Control)
     // 전통적인 자바 개발에서는 객체를 사용하는 곳에서 생성자를 호출하고, 메서드를 이용.
