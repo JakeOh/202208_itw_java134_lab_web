@@ -11,7 +11,9 @@ import com.example.spring02.domain.Post;
 public interface PostMapper {
     
     List<Post> selectOrderByIdDesc();
-    int insert(Post post);
+    int insert(Post entity);
     Post selectById(Integer id);
+    int updateTitleAndContentById(Post entity);
+    int deleteById(Integer id);
 
 }

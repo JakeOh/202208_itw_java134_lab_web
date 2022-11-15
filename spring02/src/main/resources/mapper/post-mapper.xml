@@ -17,8 +17,17 @@
     </insert>
     
     <select id="selectById" resultType="com.example.spring02.domain.Post">
-    select * from POSTS
-    where ID = #{id}
+    select * from POSTS where ID = #{id}
     </select>
+    
+    <update id="updateTitleAndContentById">
+    update POSTS
+    set TITLE = #{title}, CONTENT = #{content}, MODIFIED_TIME = sysdate
+    where ID = #{id}
+    </update>
+    
+    <delete id="deleteById">
+    delete from POSTS where ID = #{id}
+    </delete>
 
 </mapper>
