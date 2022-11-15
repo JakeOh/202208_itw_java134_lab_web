@@ -3,7 +3,6 @@ package com.example.spring02.ojdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,6 +44,15 @@ public class TestHikariConfig {
     
     @Autowired
     private HikariDataSource ds;
+    
+    @Autowired
+    private SqlSessionFactoryBean sessionFactory;
+    
+    @Test
+    public void testSessionFactory() {
+        Assertions.assertNotNull(sessionFactory);
+        log.info("SqlSessionFactoryBean = {}", sessionFactory);
+    }
     
     @Test
     public void testHikariConfig() throws SQLException {
