@@ -78,32 +78,24 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" 
     crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.1.min.js" 
-    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
-    crossorigin="anonymous"></script>
 
 <c:url var="postDeletePage" value="/post/delete"></c:url>
 <c:url var="postUpdatePage" value="/post/update"></c:url>
 
 <script>
-// HTML 문서 로딩이 모두 끝난 이후에 function을 실행.
-$(function () {
 	const form = document.querySelector('#formModify');
 	
-	const btnDelete = $('#btnDelete'); // document.querySelector('#btnDelete')
-	
-	// btnDelete.addEventListener('click', function () {})
-	btnDelete.click(function (event) {
+	const btnDelete = document.querySelector('#btnDelete');
+	btnDelete.addEventListener('click', function (event) {
 		event.preventDefault(); // 버튼의 이벤트 처리 기본 동작(폼 제출)을 막음.
 		const result = confirm('정말 삭제?');
 		if (result) {
 			form.action = '${ postDeletePage }'; // EL
 			form.method = 'post';
-			form.submit();
+			form.submit(); // 폼 제출
 		}
 	});
-	
-});
+
 </script>    
 </body>
 </html>
