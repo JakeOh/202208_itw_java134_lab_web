@@ -59,6 +59,17 @@ public class PostController {
         return "redirect:/post/list";
     }
     
-    //상세보기/수정페이지/수정/삭제 컨트롤러 메서드
+    // 상세보기
+    @GetMapping("/detail")
+    public String detail(Integer id, Model model) {
+        log.info("detail(id={})", id);
+        
+        Post post = postService.read(id);
+        model.addAttribute("post", post);
+        
+        return "/post/detail";
+    }
+    
+    // 수정페이지/수정/삭제 컨트롤러 메서드
     
 }

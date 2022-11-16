@@ -39,6 +39,10 @@ public class PostService {
         return postMapper.insert(dto.toEntity());
     }
 
-    // TODO: 새 글 작성/글 번호 검색/수정/삭제 서비스
+    public Post read(Integer id) {
+        log.info("read(id={})", id);
+        
+        return postMapper.selectById(id);
+    }
     
 }
