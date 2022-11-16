@@ -44,5 +44,11 @@ public class PostService {
         
         return postMapper.selectById(id);
     }
+
+    public int delete(Integer id) {
+        log.info("delete(id={})", id);
+        
+        return postMapper.deleteById(id);
+    }
     
 }

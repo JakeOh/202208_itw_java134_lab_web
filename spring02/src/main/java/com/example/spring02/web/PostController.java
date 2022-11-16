@@ -70,6 +70,25 @@ public class PostController {
         return "/post/detail";
     }
     
-    // 수정페이지/수정/삭제 컨트롤러 메서드
+    // 수정페이지
+    @GetMapping("/modify")
+    public String modify(Integer id, Model model) {
+        log.info("modify(id={})", id);
+        
+        Post post = postService.read(id);
+        model.addAttribute("post", post);
+        
+        return "/post/modify";
+    }
+    
+    // 삭제 컨트롤러 메서드
+    @PostMapping("/delete")
+    public String delete(Integer id) {
+        log.info("delete(id={})", id);
+        
+        postService.delete(id);
+        
+        return "redirect:/post/list";
+    }
     
 }

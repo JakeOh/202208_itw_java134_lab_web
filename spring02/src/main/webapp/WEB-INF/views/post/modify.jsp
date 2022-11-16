@@ -18,7 +18,7 @@
     
     <header class="my-2 p-4 text-center text-bg-secondary">
         <h1>Spring MVC &amp; MyBatis</h1>
-        <h2>포스트 상세 보기 페이지</h2>
+        <h2>포스트 수정 페이지</h2>
     </header>
     
     <nav>
@@ -35,7 +35,7 @@
                 <c:url var="postModifyPage" value="/post/modify">
                     <c:param name="id" value="${ post.id }" />
                 </c:url>
-                <a class="nav-link active" href="${ postModifyPage }">수정 페이지</a>
+                <a class="nav-link disabled" href="${ postModifyPage }">수정 페이지</a>
             </li>
         </ul>
     </nav>
@@ -44,20 +44,20 @@
         <div class="card">
             <div class="card-header"></div>
             <div class="card-body">
-                <form>
+                <form id="formModify">
                     <div class="my-2">
                         <label for="id" class="form-label">번호</label>
                         <input id="id" class="form-control"
-                            type="text" value="${ post.id }" readonly />
+                            type="text" name="id" value="${ post.id }" readonly />
                     </div>
                     <div class="my-2">
                         <label for="title" class="form-label">제목</label>
                         <input id="title" class="form-control"
-                            type="text" value="${ post.title }" readonly />
+                            type="text" name="title" value="${ post.title }" required autofocus />
                     </div>
                     <div class="my-2">
                         <label for="content" class="form-label">내용</label>
-                        <textarea id="content" class="form-control" readonly>${ post.content }</textarea>
+                        <textarea id="content" class="form-control" name="content">${ post.content }</textarea>
                     </div>
                     <div class="my-2">
                         <label for="author" class="form-label">작성자</label>
@@ -65,14 +65,8 @@
                             type="text" value="${ post.author }" readonly />
                     </div>
                     <div class="my-2">
-                        <label for="createdTime" class="form-label">작성시간</label>
-                        <input id="createdTime" class="form-control"
-                            type="text" value="${ post.created_time }" readonly />
-                    </div>
-                    <div class="my-2">
-                        <label for="modifiedTime" class="form-label">수정시간</label>
-                        <input id="modifiedTime" class="form-control"
-                            type="text" value="${ post.modified_time }" readonly />
+                        <button id="btnDelete" class="btn btn-danger">삭제</button>
+                        <button id="btnUpdate" class="btn btn-success">업데이트</button>
                     </div>
                 </form>
             </div>
@@ -87,5 +81,29 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" 
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" 
     crossorigin="anonymous"></script>
+
+<c:url var="postDeletePage" value="/post/delete"></c:url>
+<c:url var="postUpdatePage" value="/post/update"></c:url>
+
+<script>
+// HTML 문서 로딩이 모두 끝난 이후에 function을 실행.
+$(function () {
+	const form = document.querySelector('#formModify');
+	
+	const btnDelete = $('#btnDelete'); // document.querySelector('#btnDelete')
+	
+	// btnDelete.addEventListener('click', function () {})
+	btnDelete.click(function (event) {
+		event.preventDefault(); // 버튼의 이벤트 처리 기본 동작(폼 제출)을 막음.
+		const result = confirm('정말 삭제?');
+		if (result) {
+			form.action = '${ postDeletePage }'; // EL
+			form.method = 'post';
+			form.submit();
+		}
+	});
+	
+});
+</script>    
 </body>
 </html>
