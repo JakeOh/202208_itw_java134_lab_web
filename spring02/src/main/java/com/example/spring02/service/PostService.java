@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.spring02.domain.Post;
+import com.example.spring02.dto.PostCreateDto;
 import com.example.spring02.mapper.PostMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,15 @@ public class PostService {
     private final PostMapper postMapper; // (2)
     
     public List<Post> read() {
+        log.info("read()");
+        
         return postMapper.selectOrderByIdDesc();
+    }
+
+    public int create(PostCreateDto dto) {
+        log.info("create(dto={})", dto);
+        
+        return postMapper.insert(dto.toEntity());
     }
 
     // TODO: 새 글 작성/글 번호 검색/수정/삭제 서비스

@@ -2,12 +2,16 @@ package com.example.spring02.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.spring02.domain.Post;
+import com.example.spring02.dto.PostCreateDto;
 import com.example.spring02.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -42,6 +46,17 @@ public class PostController {
         log.info("create()");
         
         return "/post/create";
+    }
+    
+    @PostMapping("/create")
+    public String create(PostCreateDto dto) {
+        log.info("create(dto={})", dto);
+
+        // 서비스 계층이 메서드를 호출해서 포스트 작성 내용을 DB에 저장.
+        postService.create(dto);
+        
+        // 포스트 목록 페이지로 이동(redirect): PRG(Post - Redirect - Get)
+        return "redirect:/post/list";
     }
     
     //상세보기/수정페이지/수정/삭제 컨트롤러 메서드
