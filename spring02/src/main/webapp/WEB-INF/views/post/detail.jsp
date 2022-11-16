@@ -69,7 +69,7 @@
                     <div class="my-2">
                         <label for="modifiedTime" class="form-label">수정시간</label>
                         <input id="modifiedTime" class="form-control"
-                            type="text" value="${ post.modified_time }" reaonly />
+                            type="text" value="${ post.modified_time }" readonly />
                     </div>
                 </form>
             </div>
