@@ -18,17 +18,18 @@
     
     <header class="my-2 p-4 text-center text-bg-secondary">
         <h1>Spring MVC &amp; MyBatis</h1>
-        <h2>메인 페이지</h2>
+        <h2>포스트 목록 페이지</h2>
     </header>
     
     <nav>
         <ul class="nav bg-light">
             <li class="nav-item">
-                <c:url var="postListPage" value="/post/list"></c:url>
-                <a class="nav-link active" href="${ postListPage }">목록 페이지</a>
+                <c:url var="mainPage" value="/"></c:url>
+                <a class="nav-link active" href="${ mainPage }">메인 페이지</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">LINK 2</a>
+                <c:url var="postCreatePage" value="/post/create"></c:url>
+                <a class="nav-link active" href="${ postCreatePage }">새 글 작성</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">LINK 3</a>
@@ -36,7 +37,29 @@
         </ul>
     </nav>
     
-    <main> <!-- TODO: main content -->
+    <main class="my-2">
+        <div class="card">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>수정시간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach var="post" items="${ list }">
+                    <tr>
+                        <td>${ post.id }</td>
+                        <td>${ post.title }</td>
+                        <td>${ post.author }</td>
+                        <td>${ post.modified_time }</td>
+                    </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </main>
     
 </div>
