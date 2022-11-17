@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.spring02.domain.Post;
 import com.example.spring02.dto.PostCreateDto;
+import com.example.spring02.dto.PostSearchDto;
+import com.example.spring02.dto.PostUpdateDto;
 import com.example.spring02.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -89,6 +91,27 @@ public class PostController {
         postService.delete(id);
         
         return "redirect:/post/list";
+    }
+    
+    @PostMapping("/update")
+    public String update(PostUpdateDto dto) {
+        log.info("update(dto={})", dto);
+        
+        postService.update(dto);
+        
+        return "redirect:/post/detail?id=" + dto.getId(); // 상세보기 페이지로 redirect
+        // "redirect:/post/list" // 목록 페이지로 redirect
+    }
+    
+    @GetMapping("/search")
+    public String search(PostSearchDto dto, Model model) {
+        log.info("search(dto={})", dto);
+        
+        // 검색 서비스 수행
+        List<Post> result = postService.searchByKeyword(dto);
+        model.addAttribute("list", result);
+        
+        return "/post/list";
     }
     
 }

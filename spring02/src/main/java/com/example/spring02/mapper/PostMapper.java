@@ -3,6 +3,7 @@ package com.example.spring02.mapper;
 import java.util.List;
 
 import com.example.spring02.domain.Post;
+import com.example.spring02.dto.PostSearchDto;
 
 // MyBatis 프레임워크에서 매퍼 인터페이스를 구현하는 클래스를 생성.
 // MyBatis 프레임워크에서 매퍼 인터페이스를 찾을 수 있도록 applicationContext.xml 파일에서
@@ -15,5 +16,6 @@ public interface PostMapper {
     Post selectById(Integer id);
     int updateTitleAndContentById(Post entity);
     int deleteById(Integer id);
+    List<Post> selectByKeywordOrderByIdDesc(PostSearchDto searchArgs);
 
 }

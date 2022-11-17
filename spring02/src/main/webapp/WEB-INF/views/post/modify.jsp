@@ -83,6 +83,7 @@
 <c:url var="postUpdatePage" value="/post/update"></c:url>
 
 <script>
+
 	const form = document.querySelector('#formModify');
 	
 	const btnDelete = document.querySelector('#btnDelete');
@@ -96,6 +97,24 @@
 		}
 	});
 
+	const btnUpdate = document.querySelector('#btnUpdate');
+	btnUpdate.addEventListener('click', function (event) {
+		event.preventDefault(); // 폼 버튼의 기본 동작(submit)을 막음.
+		const result = confirm('수정 완료?');
+		if (result) {
+			const title = document.querySelector('#title').value;
+			const content = document.querySelector('#content').value;
+			if (title == '' || content == '') {
+				alert('제목 또는 내용은 반드시 입력!');
+				return;
+			}
+			
+			form.action = '${ postUpdatePage }'; // submit (update)요청을 보낼 주소
+			form.method = 'post'; // submit 요청 방식
+			form.submit();
+		}
+	});
+	
 </script>    
 </body>
 </html>

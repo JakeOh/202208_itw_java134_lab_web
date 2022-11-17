@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.spring02.domain.Post;
 import com.example.spring02.dto.PostCreateDto;
+import com.example.spring02.dto.PostSearchDto;
+import com.example.spring02.dto.PostUpdateDto;
 import com.example.spring02.mapper.PostMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -49,6 +51,20 @@ public class PostService {
         log.info("delete(id={})", id);
         
         return postMapper.deleteById(id);
+    }
+
+    public int update(PostUpdateDto dto) {
+        log.info("update(dto={})", dto);
+        
+        return postMapper.updateTitleAndContentById(dto.toEntity());
+    }
+    
+    public List<Post> searchByKeyword(PostSearchDto dto) {
+        log.info("searchByKeyword(dto={})", dto);
+        
+        dto.setKeyword("%" + dto.getKeyword().toLowerCase() + "%");
+        
+        return postMapper.selectByKeywordOrderByIdDesc(dto);
     }
     
 }
