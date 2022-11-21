@@ -19,9 +19,13 @@ import lombok.ToString;
 @Getter
 @ToString
 @Entity(name = "POSTS")
-// 엔터티 클래스와 데이터베이스 테이블의 이름이 다르면 반드시 name 속성을 지정.
+//-> 엔터티 클래스와 데이터베이스 테이블의 이름이 다르면 반드시 name 속성을 지정.
 @SequenceGenerator(name = "POSTS_SEQ_GEN", sequenceName = "POSTS_SEQ", initialValue = 1, allocationSize = 1)
-public class Post {
+//-> 오라클의 시퀀스 객체를 고유키 생성에 사용하기 위해서.
+public class Post extends BaseTimeEntity {
+    // 엔터티 클래스에서 @MappedSuperClass로 설정된 클래스를 상속하면
+    // 상위 클래스의 필드들도 테이블의 컬럼으로 작성됨.
+    
     @Id // Primary Key(고유키)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "POSTS_SEQ_GEN")
     private Integer id;
