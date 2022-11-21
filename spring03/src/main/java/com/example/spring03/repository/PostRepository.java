@@ -1,5 +1,7 @@
 package com.example.spring03.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.spring03.domain.Post;
@@ -10,4 +12,7 @@ import com.example.spring03.domain.Post;
 // @Repository 필요 없음.
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
+    // select * from POSTS order by ID desc
+    List<Post> findByOrderByIdDesc();
+    
 }
