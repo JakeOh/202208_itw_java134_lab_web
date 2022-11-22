@@ -24,7 +24,7 @@
                             <td th:text="${ post.id }"></td>
                             <td th:text="${ post.title }"></td>
                             <td th:text="${ post.author }"></td>
-                            <td th:text="${ post.modifiedTime }"></td>
+                            <td th:text="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }"></td>
                         </tr>
                     </tbody>
                 </table>
