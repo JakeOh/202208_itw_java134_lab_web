@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.spring03.domain.Post;
+import com.example.spring03.dto.PostCreateDto;
 import com.example.spring03.repository.PostRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,14 @@ public class PostService {
         log.info("read()");
         
         return postRepository.findByOrderByIdDesc();
+    }
+
+    public Post create(PostCreateDto dto) {
+        log.info("create(dto={})", dto);
+        
+        Post entity = postRepository.save(dto.toEntity());
+        
+        return entity;
     }
 
 }

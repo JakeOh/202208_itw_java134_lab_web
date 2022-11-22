@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.spring03.domain.Post;
 import com.example.spring03.dto.PostCreateDto;
 import com.example.spring03.service.PostService;
 
@@ -27,10 +29,13 @@ public class PostController {
     }
     
     @PostMapping("/create") // Post 방식의 /post/create 요청을 처리하는 메서드.
-    public String create(PostCreateDto dto) {
+    public String create(PostCreateDto dto, RedirectAttributes attrs) {
         log.info("create(dto={})", dto);
         
-        // TODO: 새 포스트 작성
+        // 새 포스트 작성
+        Post entity = postService.create(dto);
+        // 작성된 포스트의 번호(id)를 리다이렉트되는 페이지로 전달.
+        attrs.addFlashAttribute("createdId", entity.getId());
         
         // PRG(Post-Redirect-Get) 패턴.
         return "redirect:/";
