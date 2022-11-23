@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.spring03.domain.Post;
 import com.example.spring03.dto.PostCreateDto;
+import com.example.spring03.dto.PostUpdateDto;
 import com.example.spring03.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -63,4 +64,14 @@ public class PostController {
         return "redirect:/";
     }
 
+    @PostMapping("/update")
+    public String update(PostUpdateDto dto) {
+        log.info("update(dto={})", dto);
+        
+        Integer postId = postService.update(dto);
+        
+        // 포스트 수정 성공 후에는 상세 페이지로 이동(redirect)
+        return "redirect:/post/detail?id=" + dto.getId();
+    }
+    
 }

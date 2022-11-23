@@ -42,7 +42,7 @@
                             data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>새 포스트([[ ${ createdId } ]]) 작성 성공</p>
+                        <p id="modalMessage">Modal 메시지</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
@@ -55,11 +55,25 @@
     </div> <!-- content -->
 
     <script layout:fragment="script" th:inline="javascript">
-    if ([[ ${ createdId } ]]) { 
-    	// redirect attribute가 있는 경우
+    const modalMessage = document.querySelector('#modalMessage');
+    
+    function createAndShowModal(msg) {
     	const createModal = document.querySelector('#createModal');
-    	const modal = new bootstrap.Modal(createModal);
-    	modal.show();
+        const modal = new bootstrap.Modal(createModal);
+        modalMessage.innerHTML = msg;
+        modal.show();
+    }
+    
+    const createdPostId = [[ ${ createdId } ]];
+    if (createdPostId) { 
+    	// redirect attribute가 있는 경우
+    	createAndShowModal('새 포스트(#' + createdPostId + ') 작성 성공');
+    }
+    
+    const deletedPostId = [[ ${ deletedPostId } ]];
+    if (deletedPostId) { 
+        // redirect attribute가 있는 경우
+        createAndShowModal('포스트(#' + deletedPostId + ') 삭제 성공');
     }
     </script>
 
