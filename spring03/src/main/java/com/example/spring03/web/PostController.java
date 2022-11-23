@@ -1,6 +1,7 @@
 package com.example.spring03.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,5 +42,13 @@ public class PostController {
         return "redirect:/";
     }
     
+    @GetMapping("/detail")
+    public void detail(Integer id, Model model) {
+        log.info("detail(id={})", id);
+        
+        // 요청 파라미터 id를 번호로 갖는 포스트 내용을 검색 -> 뷰에 전달.
+        Post post = postService.read(id);
+        model.addAttribute("post", post);
+    }
 
 }

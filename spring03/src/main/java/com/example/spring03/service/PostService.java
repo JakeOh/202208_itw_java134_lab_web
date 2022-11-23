@@ -32,4 +32,10 @@ public class PostService {
         return entity;
     }
 
+    public Post read(Integer id) {
+        log.info("read(id={})", id);
+        
+        return postRepository.findById(id).get();
+    }
+
 }
