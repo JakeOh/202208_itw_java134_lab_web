@@ -37,6 +37,10 @@
                             th:value="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" readonly />
                     </div>
                 </form>
+                <div class="my-2">
+                    <a class="btn btn-primary" 
+                        th:href="@{ /post/modify?id={id} (id = ${ post.id }) }">수정하기</a>
+                </div>
             </div>
         </div>
     </div>

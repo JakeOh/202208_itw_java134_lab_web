@@ -38,4 +38,12 @@ public class PostService {
         return postRepository.findById(id).get();
     }
 
+    public Integer delete(Integer id) {
+        log.info("delete(id={})", id);
+        
+        postRepository.deleteById(id);
+        
+        return id; // 삭제한 포스트 아이디(번호)를 리턴.
+    }
+
 }
