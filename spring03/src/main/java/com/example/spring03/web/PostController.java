@@ -1,5 +1,7 @@
 package com.example.spring03.web;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,6 +74,16 @@ public class PostController {
         
         // 포스트 수정 성공 후에는 상세 페이지로 이동(redirect)
         return "redirect:/post/detail?id=" + dto.getId();
+    }
+    
+    @GetMapping("/search")
+    public String search(String type, String keyword, Model model) {
+        log.info("search(type={}, keyword={})", type, keyword);
+        
+        List<Post> list = postService.search(type, keyword);
+        model.addAttribute("list", list);
+        
+        return "/post/list"; // list.html 파일
     }
     
 }
