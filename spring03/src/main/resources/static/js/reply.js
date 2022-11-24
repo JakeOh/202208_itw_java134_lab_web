@@ -72,7 +72,12 @@ window.addEventListener('DOMContentLoaded', () => {
                 + '<h5>' + r.writer + '</h5>'
                 + '</div>'
                 + '<div class="card-body">'
-                
+                + '<p>' + r.replyText + '</p>'
+                + '<p> 작성 시간: ' + r.createdTime + '</p>'
+                + '<p> 수정 시간: ' + r.modifiedTime + '</p>'
+                + '</div>'
+                + '<div class="card-footer">'
+                + `<button type="button" class="btnModifies btn btn-outline-primary" data-rid="${r.replyId}">수정</button>`
                 + '</div>'
                 + '</div>';
         }
