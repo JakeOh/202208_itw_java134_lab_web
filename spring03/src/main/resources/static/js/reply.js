@@ -26,14 +26,14 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         
         // 댓글 등록 Ajax POST 요청을 보낼 때 서버로 보내는 데이터 작성.
-        const reqParams = {
+        const data = {
             postId: postId, // 댓글이 달릴 포스트 아이디(번호)
             replyText: replyText, // 댓글 내용
             writer: writer // 댓글 작성자
-        };
+        }; // JavaScript Object
         
         // Axios 라이브러리를 사용해서 Ajax POST 요청을 보냄.
-        axios.post('/api/reply', reqParams) // Ajax Post 요청 보냄.
+        axios.post('/api/reply', data) // Ajax Post 요청 보냄.
             .then(response => { // 성공 응답(response)이 도착했을 때 실행할 콜백
                 console.log(response);
             })
