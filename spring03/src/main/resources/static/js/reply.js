@@ -36,11 +36,28 @@ window.addEventListener('DOMContentLoaded', () => {
         axios.post('/api/reply', data) // Ajax Post 요청 보냄.
             .then(response => { // 성공 응답(response)이 도착했을 때 실행할 콜백
                 console.log(response);
+                alert('#' + response.data + ' 댓글 등록 성공');
+                clearInputs(); // 댓글 작성자, 내용에 작성된 문자열을 삭제.
+                readAllReplies(); // 댓글 목록을 다시 요청, 갱신.
             })
             .catch(error => { // 실패 응답(error)이 도착했을 때 실행할 콜백
                 console.log(error);
             });
         
+    }
+    
+    function clearInputs() {
+        document.querySelector('#writer').value = '';
+        document.querySelector('#replyText').value = '';
+    }
+    
+    function readAllReplies() {
+        const postId = document.querySelector('#id').value; // 댓글이 달려 있는 글 번호
+        
+        axios
+        .get('/api/reply/all/' + postId) // Ajax GET 요청 보냄.
+        .then(response => { console.log(response) })
+        .catch(err => { console.log(err) });
     }
     
 });

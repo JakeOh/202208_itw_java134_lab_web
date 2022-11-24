@@ -1,11 +1,16 @@
 package com.example.spring03.web;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.spring03.dto.ReplyReadDto;
 import com.example.spring03.dto.ReplyRegisterDto;
 import com.example.spring03.service.ReplyService;
 
@@ -33,6 +38,15 @@ public class ReplyRestController {
         
         // 작성된 댓글의 아이디를 응답 데이터(response data)로 만들어서, Ajax 요청에 대한 성공 응답을 전송.
         return ResponseEntity.ok(replyId);
+    }
+    
+    @GetMapping("/all/{postId}")
+    // REST controller에서 ResponseEntity를 리턴할 때, 데이터 타입으로 엔터티 클래스를 사용하면 안됨.
+    public ResponseEntity<List<ReplyReadDto>> readAllReplies(@PathVariable Integer postId) {
+        // @PathVariable: 요청 주소에서 변수처럼 값이 변하는 부분.
+        log.info("readAllReplies(postId={})", postId);
+        
+        return null;
     }
 
 }
