@@ -46,7 +46,12 @@ public class ReplyRestController {
         // @PathVariable: 요청 주소에서 변수처럼 값이 변하는 부분.
         log.info("readAllReplies(postId={})", postId);
         
-        return null;
+        List<ReplyReadDto> list = replyService.readReplies(postId);
+        log.info("# of list = ", list.size());
+        
+        return ResponseEntity.ok(list);
+        // Java의 List 타입 객체가 JSON(JavaScrtipt Object Notation) 문자열로 변환되서
+        // 클라이언트(브라우저)로 전송.
     }
 
 }

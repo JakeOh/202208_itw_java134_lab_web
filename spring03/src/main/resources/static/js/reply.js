@@ -5,6 +5,7 @@
  */
 window.addEventListener('DOMContentLoaded', () => {
     // HTML의 Document Object들이 모두 로딩 끝난 후에 코드들이 실행될 수 있도록 하기 위해서.
+    readAllReplies(); // 포스트 상세 페이지가 로딩된 후 댓글 목록 화면 출력.
     
     // btnReplyRegister 버튼을 찾고 이벤트 리스너를 등록.
     const btnReplyRegister = document.querySelector('#btnReplyRegister');
@@ -56,8 +57,26 @@ window.addEventListener('DOMContentLoaded', () => {
         
         axios
         .get('/api/reply/all/' + postId) // Ajax GET 요청 보냄.
-        .then(response => { console.log(response) })
+        .then(response => { updateReplyList(response.data) })
         .catch(err => { console.log(err) });
+    }
+    
+    function updateReplyList(data) {
+        // 댓글들의 배열(data)을 HTML 영역에 보일 수 있도록 html 코드 작성.
+        const divReplies = document.querySelector('#replies');
+        
+        let str = ''; // div 안에 들어갈 HTML 코드
+        for (let r of data) {
+            str += '<div class="card my-2">'
+                + '<div class="card-header">'
+                + '<h5>' + r.writer + '</h5>'
+                + '</div>'
+                + '<div class="card-body">'
+                
+                + '</div>'
+                + '</div>';
+        }
+        divReplies.innerHTML = str;
     }
     
 });
