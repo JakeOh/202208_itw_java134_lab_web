@@ -9,6 +9,7 @@ import com.example.spring03.domain.Post;
 import com.example.spring03.domain.Reply;
 import com.example.spring03.dto.ReplyReadDto;
 import com.example.spring03.dto.ReplyRegisterDto;
+import com.example.spring03.dto.ReplyUpdateDto;
 import com.example.spring03.repository.PostRepository;
 import com.example.spring03.repository.ReplyRepository;
 
@@ -66,6 +67,19 @@ public class ReplyService {
         replyRepository.deleteById(replyId);
         
         return replyId;
+    }
+
+    @Transactional
+    public Integer update(ReplyUpdateDto dto) {
+        log.info("update(dto={})", dto);
+        
+        // 수정하려는 댓글 아이디로 댓글 엔터티 객체를 검색.
+        Reply entity = replyRepository.findById(dto.getReplyId()).get();
+        // 데이터베이스 테이블에서 검색한 엔터티 객체를 수정.
+        entity.update(dto.getReplyText());
+        // @Transactional이 적용된 경우에 메서드 실행이 끝날 때 DB에 자동으로 save(update)됨.
+        
+        return entity.getId(); // 수정한 엔터티의 아이디를 리턴.
     }
     
 }

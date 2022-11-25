@@ -151,7 +151,10 @@ window.addEventListener('DOMContentLoaded', () => {
             const data = { replyText: replyText }; // Ajax 요청으로 보낼 데이터 객체.
             axios
             .put('/api/reply/' + replyId, data) // Ajax PUT 요청을 전송
-            .then(response => { console.log(response) }) // 성공 응답 처리
+            .then(response => { 
+                alert('#' + response.data + ' 댓글 수정 성공');
+                readAllReplies(); // 댓글 목록 갱신
+             }) // 성공 응답 처리
             .catch(err => { console.log(err) }) // 실패 응답 처리
             .then(function () { // 성공 또는 실패 처리 후 항상 실행할 코드
                 replyModal.hide(); 

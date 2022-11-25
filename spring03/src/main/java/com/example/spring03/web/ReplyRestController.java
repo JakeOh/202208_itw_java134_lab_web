@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spring03.dto.ReplyReadDto;
 import com.example.spring03.dto.ReplyRegisterDto;
+import com.example.spring03.dto.ReplyUpdateDto;
 import com.example.spring03.service.ReplyService;
 
 import lombok.RequiredArgsConstructor;
@@ -73,4 +75,16 @@ public class ReplyRestController {
         return ResponseEntity.ok(result);
     }
 
+    @PutMapping("/{replyId}")
+    public ResponseEntity<Integer> updateReply(
+            @PathVariable Integer replyId,
+            @RequestBody ReplyUpdateDto dto) {
+        log.info("updateReply(replyId={}, dto={})", replyId, dto);
+        
+        dto.setReplyId(replyId); // DTO에 댓글 아이디를 저장.
+        Integer result = replyService.update(dto);
+        
+        return ResponseEntity.ok(result);
+    }
+    
 }
