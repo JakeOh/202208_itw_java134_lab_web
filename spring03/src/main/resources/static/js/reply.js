@@ -102,7 +102,39 @@ window.addEventListener('DOMContentLoaded', () => {
         .catch(err => { console.log(err) });
     }
     
+    const divModal = document.querySelector('#replyModal');
+    const replyModal = new bootstrap.Modal(divModal); // 부트스트랩 Modal 객체 생성.
+    const modalReplyId = document.querySelector('#modalReplyId'); // 댓글 아이디 input
+    const modalReplyText = document.querySelector('#modalReplyText'); // 댓글 내용 textarea
+    const modalBtnDelete = document.querySelector('#modalBtnDelete'); // 댓글 삭제 버튼
+    const modalBtnUpdate = document.querySelector('#modalBtnUpdate'); // 댓글 수정완료 버튼
+    
     function showModal(reply) {
+        // Modal 댓글 아이디/내용 채우기
+        modalReplyId.value = reply.replyId;
+        modalReplyText.value = reply.replyText;
+        
+        replyModal.show(); // 모달을 화면에 보여주기
+    }
+    
+    modalBtnDelete.addEventListener('click', deleteReply);
+    modalBtnUpdate.addEventListener('click', updateReply);
+    
+    function deleteReply(event) {
+        const replyId = modalReplyId.value; // 삭제할 댓글 아이디
+        const result = confirm('정말 삭제?');
+        if (result) {
+            axios
+            .delete('/api/reply/' + replyId) // Ajax DELETE 요청 전송
+            .then(response => { console.log(response) })
+            .catch(err => { console.log(err) });
+            
+            replyModal.hide(); // 모달 닫기
+        }
+    }
+    
+    function updateReply(event) {
+        const replyId = modalReplyId.value; // 수정할 댓글 아이디
         
     }
     
