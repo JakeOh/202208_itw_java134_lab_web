@@ -50,7 +50,7 @@ public class ReplyRestController {
         log.info("readAllReplies(postId={})", postId);
         
         List<ReplyReadDto> list = replyService.readReplies(postId);
-        log.info("# of list = ", list.size());
+        log.info("# of list = {}", list.size());
         
         return ResponseEntity.ok(list);
         // Java의 List 타입 객체가 JSON(JavaScrtipt Object Notation) 문자열로 변환되서
