@@ -3,6 +3,7 @@ package com.example.spring03.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.spring03.domain.Post;
 import com.example.spring03.domain.Reply;
@@ -37,6 +38,7 @@ public class ReplyService {
         return reply.getId(); // 테이블에 저장된 댓글 번호(아이디)를 리턴.
     }
     
+    @Transactional(readOnly = true)
     // 데이터베이스 테이블에서 포스트 번호에 달려있는 모든 댓글을 검색해서 리스트를 리턴.
     public List<ReplyReadDto> readReplies(Integer postId) {
         log.info("readReplies(postId={})", postId);
@@ -47,6 +49,15 @@ public class ReplyService {
         return list.stream()
                 .map(ReplyReadDto::fromEntity)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public ReplyReadDto readReply(Integer replyId) {
+        log.info("readReply(replyId={})", replyId);
+        
+        Reply entity = replyRepository.findById(replyId).get();
+        
+        return ReplyReadDto.fromEntity(entity);
     }
     
 }

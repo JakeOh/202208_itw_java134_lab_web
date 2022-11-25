@@ -86,12 +86,24 @@ window.addEventListener('DOMContentLoaded', () => {
         // [수정] 버튼들이 HTML 요소로 만들어지 이후에, [수정] 버튼에 이벤트 리스너를 등록.
         const buttons = document.querySelectorAll('.btnModifies');
         buttons.forEach(btn => {
-            btn.addEventListener('click', showModal);
+            btn.addEventListener('click', getReply);
         });
     }
     
-    function showModal(event) {
-        console.log(event.target);
+    function getReply(event) {
+        //console.log(event.target); // 이벤트가 발생한 타겟 -> 버튼
+        // 클릭된 버튼의 data-rid 속성값을 읽음.
+        const rid = event.target.getAttribute('data-rid');
+        
+        // 해당 댓글 아이디의 댓글 객체를 Ajax GET 방식으로 요청.
+        axios
+        .get('/api/reply/' + rid)
+        .then(response => { showModal(response.data) })
+        .catch(err => { console.log(err) });
+    }
+    
+    function showModal(reply) {
+        
     }
     
 });

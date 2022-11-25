@@ -53,5 +53,14 @@ public class ReplyRestController {
         // Java의 List 타입 객체가 JSON(JavaScrtipt Object Notation) 문자열로 변환되서
         // 클라이언트(브라우저)로 전송.
     }
+    
+    @GetMapping("/{replyId}")
+    public ResponseEntity<ReplyReadDto> getReply(@PathVariable Integer replyId) {
+        log.info("getReply(replyId={})", replyId);
+        
+        ReplyReadDto dto = replyService.readReply(replyId);
+        
+        return ResponseEntity.ok(dto);
+    }
 
 }
