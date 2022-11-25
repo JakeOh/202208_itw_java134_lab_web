@@ -82,6 +82,16 @@ window.addEventListener('DOMContentLoaded', () => {
                 + '</div>';
         }
         divReplies.innerHTML = str;
+        
+        // [수정] 버튼들이 HTML 요소로 만들어지 이후에, [수정] 버튼에 이벤트 리스너를 등록.
+        const buttons = document.querySelectorAll('.btnModifies');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', showModal);
+        });
+    }
+    
+    function showModal(event) {
+        console.log(event.target);
     }
     
 });
