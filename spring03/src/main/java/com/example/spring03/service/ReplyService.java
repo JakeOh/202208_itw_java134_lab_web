@@ -59,5 +59,13 @@ public class ReplyService {
         
         return ReplyReadDto.fromEntity(entity);
     }
+
+    public Integer delete(Integer replyId) {
+        log.info("delete(replyId={})", replyId);
+        
+        replyRepository.deleteById(replyId);
+        
+        return replyId;
+    }
     
 }

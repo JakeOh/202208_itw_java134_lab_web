@@ -126,16 +126,37 @@ window.addEventListener('DOMContentLoaded', () => {
         if (result) {
             axios
             .delete('/api/reply/' + replyId) // Ajax DELETE 요청 전송
-            .then(response => { console.log(response) })
-            .catch(err => { console.log(err) });
-            
-            replyModal.hide(); // 모달 닫기
+            .then(response => { 
+                alert(`#${response.data} 댓글 삭제 성공`);
+                readAllReplies(); // 댓글 목록 갱신
+             }) // 성공(HTTP 200 OK) 응답
+            .catch(err => { console.log(err) }) // 실패 응답(HTTP 40x, 50x, ...)
+            .then(function () {
+                // 성공 응답 처리 또는 실패 응답 처리가 끝났을 때 무조건 실행할 문장.
+                replyModal.hide(); // 모달 닫기
+            });
         }
     }
     
     function updateReply(event) {
         const replyId = modalReplyId.value; // 수정할 댓글 아이디
+        const replyText = modalReplyText.value; // 수정할 댓글 내용
+        if (replyText == '') {
+            alert('댓글 내용은 반드시 입력');
+            return;
+        }
         
+        const result = confirm('수정 완료?');
+        if (result) {
+            const data = { replyText: replyText }; // Ajax 요청으로 보낼 데이터 객체.
+            axios
+            .put('/api/reply/' + replyId, data) // Ajax PUT 요청을 전송
+            .then(response => { console.log(response) }) // 성공 응답 처리
+            .catch(err => { console.log(err) }) // 실패 응답 처리
+            .then(function () { // 성공 또는 실패 처리 후 항상 실행할 코드
+                replyModal.hide(); 
+            });
+        }
     }
     
 });

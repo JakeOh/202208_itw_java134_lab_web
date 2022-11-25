@@ -3,6 +3,7 @@ package com.example.spring03.web;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,6 +62,15 @@ public class ReplyRestController {
         ReplyReadDto dto = replyService.readReply(replyId);
         
         return ResponseEntity.ok(dto);
+    }
+    
+    @DeleteMapping("/{replyId}")
+    public ResponseEntity<Integer> deleteReply(@PathVariable Integer replyId) {
+        log.info("deleteReply(replyId={})", replyId);
+        
+        Integer result = replyService.delete(replyId);
+        
+        return ResponseEntity.ok(result);
     }
 
 }
