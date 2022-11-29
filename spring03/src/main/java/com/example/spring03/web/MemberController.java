@@ -1,8 +1,10 @@
 package com.example.spring03.web;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,6 +18,16 @@ public class MemberController {
         log.info("signUp() GET");
         // 컨트롤러 메서드의 리턴 타입이 void일 때 뷰의 이름은 요청 주소와 같음.
         // -> templates/member/signup.html
+    }
+    
+    @GetMapping("/checkid")
+    @ResponseBody
+    //-> 컨트롤러 메서드가 리턴하는 값이 뷰의 이름이 아니라 클라이언트로 직접 전송되는 데이터인 경우.
+    //-> Ajax 요청 처리에 대한 응답을 리턴할 때.
+    public ResponseEntity<String> checkUsername(String username) {
+        log.info("checkUsername(username={})", username);
+        
+        return null;
     }
     
 }
