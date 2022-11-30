@@ -2,6 +2,7 @@ package com.example.spring03.service;
 
 import java.util.Optional;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.spring03.domain.Member;
@@ -16,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MemberService {
     
+    // SecurityConfig 클래스에서 @Bean으로 설정된 객체를 주입받음.
+    private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
     
     public String checkUsername(String username) {
@@ -33,6 +36,8 @@ public class MemberService {
     public Member registerMember(MemberRegisterDto dto) {
         log.info("registerMember(dto={})", dto);
         
+        // 로그인 비밀번호를 암호화한 후 DB에 insert.
+        dto.setPassword(passwordEncoder.encode(dto.getPassword()));
         Member entity = memberRepository.save(dto.toEntity());
         log.info("entity = {}", entity);
         
