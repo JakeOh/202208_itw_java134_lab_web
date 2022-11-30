@@ -48,7 +48,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     function clearInputs() {
-        document.querySelector('#writer').value = '';
+        // 댓글 작성자 아이디는 로그인 사용자 아이디로 자동 완성되기 때문에 지우면 안됨.
+        // document.querySelector('#writer').value = '';
         document.querySelector('#replyText').value = '';
     }
     
@@ -75,11 +76,14 @@ window.addEventListener('DOMContentLoaded', () => {
                 + '<p>' + r.replyText + '</p>'
                 + '<p> 작성 시간: ' + r.createdTime + '</p>'
                 + '<p> 수정 시간: ' + r.modifiedTime + '</p>'
-                + '</div>'
-                + '<div class="card-footer">'
-                + `<button type="button" class="btnModifies btn btn-outline-primary" data-rid="${r.replyId}">수정</button>`
-                + '</div>'
                 + '</div>';
+            // 댓글 작성자 아이디와 로그인 사용자 아이디가 같을 때만 "수정" 보여주기.
+            if (r.writer == loginUser) {
+                str += '<div class="card-footer">'
+                    + `<button type="button" class="btnModifies btn btn-outline-primary" data-rid="${r.replyId}">수정</button>`
+                    + '</div>';
+            }
+            str += '</div>';
         }
         divReplies.innerHTML = str;
         

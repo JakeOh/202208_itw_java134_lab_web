@@ -28,7 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         // -> 일치하는 username이 없으면 UsernameNotFoundException 예외를 발생.
         // -> 절대로 null을 리턴하면 안됨.
         
-        Optional<Member> entity  = memberRepository.findByUsername(username);
+        Optional<Member> entity = memberRepository.findByUsername(username);
         if (entity.isPresent()) { // 로그인 아이디가 일치하는 엔터티가 있는 경우
             return MemberSecurityDto.fromEntity(entity.get());
         } else { // 해당 아이디 정보가 없는 경우
